@@ -3,25 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function ProductDelete() {
     const [id, setId] = useState(0);
 
-    const urlCategories = "http://localhost:8080/api/categories";
-    const urlProducts = "http://localhost:8080/api/products";
-
-    useEffect(() => {
-        loadCategories();
-    }, []); //function called only once
-
-    function loadCategories() {
-        fetch(urlCategories)
-            .then(response => response.json())
-            .then(data => {
-                if(data.categories.length > 0) {
-                    setCategoryId(data.categories[0].id)
-                }
-                setCategories(data.categories);
-            })
-            .catch((error) => {
-            });
-    }
+    const urlProducts = "http://localhost:8080/api/products/delete";
 
     function handleUpdate() {
 
@@ -31,7 +13,7 @@ export default function ProductDelete() {
 
         fetch(urlProducts, 
             {
-                method: 'DELETE',
+                method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },

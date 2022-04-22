@@ -8,7 +8,7 @@ export default function ProductUpdate() {
     const [categoryId, setCategoryId] = useState("");
 
     const urlCategories = "http://localhost:8080/api/categories";
-    const urlProducts = "http://localhost:8080/api/products";
+    const urlProducts = "http://localhost:8080/api/products/update";
 
     useEffect(() => {
         loadCategories();
@@ -41,7 +41,7 @@ export default function ProductUpdate() {
 
         fetch(urlProducts, 
             {
-                method: 'UPDATE',
+                method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function CategoryDelete() {
     const [id, setID] = useState(0);
 
-    const urlCategories = "http://localhost:8080/api/categories";
+    const urlCategories = "http://localhost:8080/api/categories/delete";
 
     function handleUpdate() {
 
@@ -14,7 +14,7 @@ export default function CategoryDelete() {
 
         fetch(urlCategories, 
             {
-                method: 'DELETE',
+                method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },

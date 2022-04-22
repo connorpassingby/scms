@@ -9,7 +9,7 @@ export default function CustomerUpdate() {
     const [zip, setZip] = useState("");
     const [phone, setPhone] = useState("");
 
-    const urlCustomers = "http://localhost:8080/api/customers";
+    const urlCustomers = "http://localhost:8080/api/customers/update";
 
     function handleUpdate() {
         console.log("firstName: " + firstName);
@@ -31,7 +31,7 @@ export default function CustomerUpdate() {
 
         fetch(urlCustomers, 
             {
-                method: 'UPDATE',
+                method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },

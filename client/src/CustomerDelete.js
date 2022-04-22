@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function CustomerDelete() {
     const [id, setId] = useState(0);
 
-    const urlCustomers = "http://localhost:8080/api/customers";
+    const urlCustomers = "http://localhost:8080/api/customers/delete";
 
     function handleUpdate() {
         
@@ -13,7 +13,7 @@ export default function CustomerDelete() {
 
         fetch(urlCustomers, 
             {
-                method: 'DELETE',
+                method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },

@@ -4,7 +4,7 @@ export default function CategoryUpdate() {
     const [name, setName] = useState("");
     const [id, setID] = useState(0);
 
-    const urlCategories = "http://localhost:8080/api/categories";
+    const urlCategories = "http://localhost:8080/api/categories/update";
 
     function handleUpdate() {
         console.log("Name: " + name);
@@ -16,7 +16,7 @@ export default function CategoryUpdate() {
 
         fetch(urlCategories, 
             {
-                method: 'UPDATE',
+                method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
                 },

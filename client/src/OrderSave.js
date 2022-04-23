@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-    useNavigate
+    useNavigate,
+    useParams
 } from "react-router-dom";
 
 export default function OrderSave() {
@@ -17,9 +18,9 @@ export default function OrderSave() {
 
     const [orderItems, setOrderItems] = useState([]);
     const [customers, setCustomers] = useState([]);
-    const [customerId, setCustomerId] = useState("");
+    const [customerId, setCustomerId] = useState(false);
     const [products, setProducts] = useState([]);
-    const [productId, setProductId] = useState("");
+    const [productId, setProductId] = useState(false);
     const [isOrderFulfilled, setIsOrderFulfilled] = useState(false);
 
     const urlCustomers = "http://localhost:8080/api/customers";
@@ -29,13 +30,31 @@ export default function OrderSave() {
     useEffect(() => {
         loadCustomers();
         loadProducts();
+        loadOrders();
     }, []); //function called only once
+
+    var { id } = useParams();
+
+    function loadOrders() {
+        if(id) {
+            fetch(`${urlOrders}/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setCustomerId(data.customerId);
+                setIsOrderFulfilled(data.isOrderFulfilled);
+                setOrderItems(data.products);
+            })
+            .catch((error) => {
+            });
+        }
+    }
 
     function loadCustomers() {
         fetch(urlCustomers)
             .then(response => response.json())
             .then(data => {
-                if (data.customers.length > 0) {
+                if (data.customers.length > 0 && !customerId) {
                     setCustomerId(data.customers[0].id)
                 }
                 setCustomers(data.customers);
@@ -48,7 +67,7 @@ export default function OrderSave() {
         fetch(urlProducts)
             .then(response => response.json())
             .then(data => {
-                if (data.products.length > 0) {
+                if (data.products.length > 0 && !productId) {
                     setProductId(data.products[0].id)
                 }
                 setProducts(data.products);
@@ -57,12 +76,30 @@ export default function OrderSave() {
             });
     }
 
+    function renderHeader() {
+        if(id) {
+            return(
+                <h1>
+                    Editing Order {id}
+                </h1>
+            )
+        } else {
+            return(
+                <h1>
+                    Adding Order
+                </h1>
+            )
+        }
+    }
+
     function handleSave() {
+        console.log("ID: " + id);
         console.log("customerId: " + customerId);
         console.log("orderItems: " + orderItems);
         console.log("isOrderFulfilled" + isOrderFulfilled);
 
         var payload = {
+            id:id,
             customerId: customerId,
             orderItems: orderItems,
             isOrderFulfilled: isOrderFulfilled
@@ -224,13 +261,13 @@ export default function OrderSave() {
     function alertSuccess() {
         alert("Operation Successful!");
 
-        navigate('/orders/');
+        navigate('/orders');
     }
 
     return (
         <div>
             <div className="form-group w-50 p-3">
-                <h1>Add Order</h1>
+                {renderHeader()}
 
                 <div className="form-group row py-2">
                     <label className="col-sm-2 col-form-label">
@@ -306,12 +343,12 @@ export default function OrderSave() {
                         className="form-control btn-warning"
                         onClick={() => { handleSave(); alertSuccess() }}
                     >
-                        Add New Order
+                        Save Order
                     </button>
 
                     <button
                         className="form-control btn-danger"
-                        onClick={() => { navigate('/orders/'); }}
+                        onClick={() => { navigate('/orders'); }}
                     >
                         Cancel
                     </button>

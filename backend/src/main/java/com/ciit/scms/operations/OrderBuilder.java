@@ -23,7 +23,8 @@ public class OrderBuilder {
 		data.put("id", order.getId());
 		data.put("customer", order.getCustomer().getLastName() + ", " + order.getCustomer().getFirstName());
 		data.put("isOrderFulfilled", order.getIsOrderFulfilled());
-	
+		data.put("customerId", order.getCustomer().getId());
+			
 		Set<OrderItem> orderItems = order.getOrderItems();
 	
 		ArrayList<HashMap<String, Object>> orderItemData = new ArrayList<HashMap<String,Object>>();
@@ -33,6 +34,7 @@ public class OrderBuilder {
 			orderItemHashMap.put("product", o.getProduct().getName());
 			orderItemHashMap.put("quantity", o.getQuantity());
 			orderItemHashMap.put("price", o.getPrice());
+			orderItemHashMap.put("orderItemsId", o.getProduct().getId());
 			
 			orderItemData.add(orderItemHashMap);
 		}

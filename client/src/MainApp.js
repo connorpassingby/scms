@@ -88,8 +88,7 @@ export default function MainApp() {
 
                         <Route exact path ="/orders/*" element={<OrderShow/>}/>
                         <Route exact path ="/orders/form" element={<OrderSave/>}/>
-                        {/* TODO */}
-                        {/* <Route exact path ="/orders/form/:id" element={<OrderSave/>}/>*/}
+                        <Route exact path ="/orders/form/:id" element={<OrderSave/>}/>
                     </Routes>
                 </div>
             </div>

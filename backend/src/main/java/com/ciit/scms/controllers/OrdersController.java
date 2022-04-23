@@ -69,9 +69,15 @@ public class OrdersController {
 		Type listType = new TypeToken<List<HashMap<String, String>>>(){}.getType();
 
 		orderItems = gson.fromJson(data.get("orderItems").toString(), listType);
+		
 		Boolean isOrderFulfilled = Boolean.parseBoolean(data.get("isOrderFulfilled").toString());
 		
 		Order o = new Order();
+		
+		if(data.get("id") != null) {
+			Integer id = Integer.parseInt(data.get("id").toString());
+			o = orderRepository.findById(id).get();
+		}
 		
 		Customer c = customerRepository.findById(customerId).get();
 		o.setCustomer(c);

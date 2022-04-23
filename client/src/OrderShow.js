@@ -8,7 +8,6 @@ export default function OrderShow() {
     const navigate = useNavigate();
 
     //observable variable and function that updates variable
-    const [message, setMessage] = useState(""); //string
     const [orders, setOrders] = useState([]); //empty array
     const [customers, setCustomers] = useState([]); //empty array
 
@@ -61,7 +60,6 @@ export default function OrderShow() {
 
     function getOrderStatus(o) {
         var status_int = o.isOrderFulfilled;
-        console.log(status_int);
         if (status_int == 1) {
             return "✅";
         } else {
@@ -99,7 +97,7 @@ export default function OrderShow() {
                                         <button
                                             type="button"
                                             className="w-100 btn btn-warning"
-                                            onClick={() => { navigate('/orders/update'); }}
+                                            onClick={() => { navigate(`/orders/form/${o.id}`); }}
                                         >
                                             Edit
                                         </button>

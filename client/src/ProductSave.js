@@ -11,7 +11,7 @@ export default function ProductAdd() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0.00);
     const [categories, setCategories] = useState([]);
-    const [categoryId, setCategoryId] = useState("");
+    const [categoryId, setCategoryId] = useState(false);
 
     const urlCategories = "http://localhost:8080/api/categories";
     const urlProducts = "http://localhost:8080/api/products";
